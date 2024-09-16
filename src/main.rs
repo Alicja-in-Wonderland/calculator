@@ -2,13 +2,15 @@
 
 mod message;
 
-use iced::Sandbox;
+use iced::{widget::{self, text}, Sandbox, Settings, Theme};
 
 fn main() {
-    println!("Hello, world!");
+    Calculator::run(Settings::default());
 }
 
-struct Calculator {}
+struct Calculator {
+    opening: String,
+}
 
 impl Sandbox for Calculator {
     type Message = message::CalculatorMessage;
@@ -30,15 +32,17 @@ impl Sandbox for Calculator {
     // dzięki wiedzy, a nie dzięki znalezionym odpowiedziom.
     // (najlepiej unikaj zaglądania do poprzedniego projektu,
     //  raczej chcemy byś spróbowała się nauczyć sama od nowa)
+    
+    // Here is where you should return the initial state of your app.
     fn new() -> Self {
         Calculator {
-            
+            opening: "Ready to calculate".to_string(),
         }
     }
 
     // no i usuń tutaj todo i zrób to samo co powyżej
     fn title(&self) -> String {
-        todo!()
+        "Kalkulator".to_string()
     }
 
     // i tu też
@@ -47,8 +51,18 @@ impl Sandbox for Calculator {
     }
 
     // no i tu. :)
+    // Application View
+    // - how your app looks like
+    // - what's there? buttons, text fields, etc...
     fn view(&self) -> iced::Element<'_, Self::Message> {
-        todo!()
+        let button1 = widget::button("1").on_press(1);
+
+        widget::container(button1).into()
+
+    }
+
+    fn theme(&self) -> Theme {
+        iced::Theme::SolarizedLight
     }
 
     // i skompiluj i uruchom, żeby zobaczyć czy się włącza
